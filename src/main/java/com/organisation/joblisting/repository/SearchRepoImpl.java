@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import org.bson.Document;
 
@@ -20,6 +21,8 @@ public class SearchRepoImpl implements SearchRepo{
 
     @Autowired
     MongoConverter converter;
+    @Autowired
+    private PostRepo repo;
     @Override
     public List<Post> findByText(String text) {
 
@@ -37,5 +40,9 @@ public class SearchRepoImpl implements SearchRepo{
                         new Document("$limit", 5L)));
         result.forEach(doc->posts.add(converter.read(Post.class,doc)));
         return posts;
+
     }
+
+
+
 }
